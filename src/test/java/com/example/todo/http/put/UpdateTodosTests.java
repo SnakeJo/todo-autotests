@@ -19,18 +19,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.todo.TestsConfiguration;
-import com.example.todo.assembling.http.AssemblingTodosBody;
 
 @Tags({
     @Tag("http"),
     @Tag("put")})
 public class UpdateTodosTests extends TestsConfiguration{
-    
-    @Autowired
-    protected AssemblingTodosBody assemblingTodosBody;
 
     @BeforeAll
     void restartTodoAppContainer() {
@@ -70,7 +65,7 @@ public class UpdateTodosTests extends TestsConfiguration{
         step("check response", () -> {
             assertEquals(200, response.statusCode());
             assertEquals("", response.body().asString());
-            assertEquals(expectedBody, updatedBody);
+            assertEquals(expectedBody, updatedBody, "The todo was not updated");
         });
     }
 
@@ -89,7 +84,7 @@ public class UpdateTodosTests extends TestsConfiguration{
         );
 
         step("check response", () -> {
-            assertEquals(404, response.statusCode());
+            assertEquals(404, response.statusCode(), "The todo was updated");
         });
     }
 
@@ -115,7 +110,7 @@ public class UpdateTodosTests extends TestsConfiguration{
         );
 
         step("check response", () -> {
-            assertEquals(401, response.statusCode());
+            assertEquals(401, response.statusCode(), "The todo was updated");
             // TODO: an error and a message about mismatched ID or invalid request should be returned here
             // currently, the ID of the todo is being changed. The system ends up with two entities having the same ID.
         });

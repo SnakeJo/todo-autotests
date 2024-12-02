@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.example.todo.assembling.http.AssemblingTodosBody;
 import com.example.todo.service.api.http.ApiHttpManager;
 import com.example.todo.utils.TodoAppHelper;
 
@@ -21,4 +22,7 @@ public class TestsConfiguration {
 
     @Autowired
     protected TodoAppHelper todoAppHelper;
+
+    @Autowired
+    protected AssemblingTodosBody assemblingTodosBody;
 }

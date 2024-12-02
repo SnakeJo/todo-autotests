@@ -19,15 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.todo.TestsConfiguration;
 import com.example.todo.assembling.http.AssemblingGetTodosQueryParams;
-import com.example.todo.assembling.http.AssemblingTodosBody;
 
 @Tags({
     @Tag("http"),
     @Tag("get")})
 public class GetTodosTests extends TestsConfiguration{
-
-    @Autowired
-    protected AssemblingTodosBody assemblingTodosBody;
 
     @Autowired
     protected AssemblingGetTodosQueryParams assemblingGetTodosQueryParams;
@@ -55,7 +51,7 @@ public class GetTodosTests extends TestsConfiguration{
 
         step("check response", () -> {
             assertEquals(200, response.statusCode());
-            assertTrue(parseResponseOfTodoBodyDomains(response).contains(body));
+            assertTrue(parseResponseOfTodoBodyDomains(response).contains(body), "Todo not found");
         });
     }
 
@@ -82,13 +78,13 @@ public class GetTodosTests extends TestsConfiguration{
 
         if (offset == 0) {
             step("check result", () -> {
-                assertTrue(currentListTodos.containsAll(initialListTodos));
+                assertTrue(currentListTodos.containsAll(initialListTodos), "Todo not found");
             });
         }
         if (offset == 1) {
             step("check result", () -> {
-                assertTrue(currentListTodos.size() == initialListTodos.size());
-                assertTrue(currentListTodos.contains(lastTodo));
+                assertTrue(currentListTodos.size() == initialListTodos.size(), "Todo list size not equal");
+                assertTrue(currentListTodos.contains(lastTodo), "Todo not found");
             });
         }
         if (offset == 2000) {
@@ -127,18 +123,18 @@ public class GetTodosTests extends TestsConfiguration{
 
         if (limit == 1) {
             step("check result", () -> {
-                assertTrue(currentListTodos.size() == limit);
-                assertTrue(currentListTodos.get(0).equals(initialListTodos.get(0)));
+                assertTrue(currentListTodos.size() == limit, "Todo list size not equal");
+                assertTrue(currentListTodos.get(0).equals(initialListTodos.get(0)), "Todo not equal");
             });
         }
         if (limit == 0) {
             step("check result", () -> {
-                assertTrue(currentListTodos.isEmpty());
+                assertTrue(currentListTodos.isEmpty(), "Todo list not empty");
             });
         }
         if (limit == 2000) {
             step("check result", () -> {
-                assertTrue(currentListTodos.size() == initialListTodos.size() + 1);
+                assertTrue(currentListTodos.size() == initialListTodos.size() + 1, "Todo list size not equal");
             });
         }
     }

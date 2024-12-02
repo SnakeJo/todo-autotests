@@ -17,18 +17,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.todo.TestsConfiguration;
-import com.example.todo.assembling.http.AssemblingTodosBody;
 
 @Tags({
     @Tag("http"),
     @Tag("post")})
 public class CreateTodosTests extends TestsConfiguration{
-
-    @Autowired
-    protected AssemblingTodosBody assemblingTodosBody;
 
     @BeforeAll
     void restartTodoAppContainer() {
@@ -77,7 +72,8 @@ public class CreateTodosTests extends TestsConfiguration{
 
         step("check response", () -> {
            assertEquals(400, response.statusCode());
-           assertTrue(response.body().asString().contains(expectedMessage));
+           assertTrue(response.body().asString().contains(expectedMessage), 
+           "Response body does not contain expected message");
         });
     }
 
@@ -93,7 +89,8 @@ public class CreateTodosTests extends TestsConfiguration{
 
         step("check response", () -> {
            assertEquals(400, response.statusCode());
-           assertTrue(response.body().asString().contains("Request body deserialize error: invalid type:"));
+           assertTrue(response.body().asString().contains("Request body deserialize error: invalid type:"),
+           "Response body does not contain expected message");
         });
     }
 
@@ -111,7 +108,8 @@ public class CreateTodosTests extends TestsConfiguration{
 
         step("check response", () -> {
            assertEquals(400, response.statusCode());
-           assertTrue(response.body().asString().contains("Request body deserialize error: invalid type:"));
+           assertTrue(response.body().asString().contains("Request body deserialize error: invalid type:"),
+           "Response body does not contain expected message");
         });
     }
 
@@ -129,7 +127,8 @@ public class CreateTodosTests extends TestsConfiguration{
 
         step("check response", () -> {
            assertEquals(400, response.statusCode());
-           assertTrue(response.body().asString().contains("Request body deserialize error: invalid type:"));
+           assertTrue(response.body().asString().contains("Request body deserialize error: invalid type:"),
+           "Response body does not contain expected message");
         });
     }
     
@@ -154,7 +153,8 @@ public class CreateTodosTests extends TestsConfiguration{
         );
 
         step("check response", () -> {
-           assertEquals(400, secondResponse.statusCode());
+           assertEquals(400, secondResponse.statusCode(),
+            "Error creating todo with existing ID fields");
         // TODO: add a understandable message for existing ID error
         });
     }
@@ -172,7 +172,7 @@ public class CreateTodosTests extends TestsConfiguration{
         var response = step("send POST /todos and get response", () -> apiHttpManager.createTodos(body));
 
         step("check response", () -> {
-           assertEquals(400, response.statusCode());
+           assertEquals(400, response.statusCode(), "Error creating todo with greater than possible ID fields");
            // TODO: there should be an error here because the specified id is greater than possible
            // now: Creating a todo with an id that is greater than possible
         });

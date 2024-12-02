@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class HttpConfiguration {
     
-    @Value("${api.base.url}")
+    @Value("${api.http.base.url}")
     private String apiBaseUrl;
 }

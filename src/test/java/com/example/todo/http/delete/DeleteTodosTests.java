@@ -20,19 +20,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.todo.TestsConfiguration;
-import com.example.todo.assembling.http.AssemblingTodosBody;
 
 @Tags({
     @Tag("http"),
     @Tag("delete")})
 public class DeleteTodosTests extends TestsConfiguration{
  
-    @Autowired
-    protected AssemblingTodosBody assemblingTodosBody;
-
     private static final String NAME_AUTH = "admin";
     private static final String PASSWORD_AUTH = "admin";
 
@@ -69,12 +64,12 @@ public class DeleteTodosTests extends TestsConfiguration{
         System.out.println(response.jsonPath().toString());
         step("check response", () -> {
             assertEquals(204, response.statusCode());
-            assertFalse(listTodo.contains(body));
+            assertFalse(listTodo.contains(body), "Todo was not deleted");
         });
     }
 
     @ParameterizedTest
-    @DisplayName("Valid request delete todo")
+    @DisplayName("Invalid request delete todo with wrong name or password")
     @MethodSource("invalidSetWithWrongNameOrPassword")
     void checkInvalidRequestWithWrongNameOrPassword(String nameAuth, String passwordAuth) {
 
@@ -95,7 +90,7 @@ public class DeleteTodosTests extends TestsConfiguration{
         System.out.println(response.jsonPath().toString());
         step("check response", () -> {
             assertEquals(401, response.statusCode());
-            assertTrue(listTodo.contains(body));
+            assertTrue(listTodo.contains(body), "Todo was deleted");
         });
     }
 

@@ -5,6 +5,7 @@ This project is a test suite for the Todo Application, designed to ensure the fu
 ## Features
 - Automated tests for creating todos
 - Utilizes Rest Assured for API testing
+- Logging is available for HTTP and WebSocket
 
 ## Prerequisites
 - Java 17
@@ -18,7 +19,9 @@ This project is a test suite for the Todo Application, designed to ensure the fu
    ```
 
 2. **Run the Todo Application**
-   podman run -e VERBOSE=1 -p 8080:4242  todo-app
+   ```bash
+   docker run -e VERBOSE=1 -p 8080:4242  todo-app
+   ```
 
 3. **Run the Tests**
    Execute the following command to run the tests:
@@ -26,3 +29,6 @@ This project is a test suite for the Todo Application, designed to ensure the fu
    mvn test
    ```
 
+## Note
+   In TODO: added indications of found errors and deficiencies for the todo-app
+   As well as additional unimplemented tests
