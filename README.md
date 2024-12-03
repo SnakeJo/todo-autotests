@@ -1,9 +1,9 @@
-# Todo Application Test Suite
+# Todo Application Test Framework
 
-This project is a test suite for the Todo Application, designed to ensure the functionality and reliability of the application's features. The test suite is built using JUnit 5 and Spring Boot, providing a robust framework for testing the application's API endpoints.
+This project is a test framework for the Todo Application, designed to ensure the functionality and reliability of the application's features. The framework is built using JUnit 5, Spring Boot, Lombok, RestAssured providing a robust framework for testing the application's API endpoints.
 
 ## Features
-- Automated tests for creating todos
+- Automated tests for creating, receiving, updated and deleted todos
 - Utilizes Rest Assured for API testing
 - Logging is available for HTTP and WebSocket
 
