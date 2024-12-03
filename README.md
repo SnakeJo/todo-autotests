@@ -8,6 +8,7 @@ This project is a test framework for the Todo Application, designed to ensure th
 - Logging is available for HTTP and WebSocket
 
 ## Prerequisites
+- docker or podman
 - Java 17
 - Maven
 
