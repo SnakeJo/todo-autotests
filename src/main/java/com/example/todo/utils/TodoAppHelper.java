@@ -21,41 +21,41 @@ public class TodoAppHelper {
      */
     public void restartTodoApp() {
         var name = getRunningContainerNameByImage(todoAppCofiguration.getImageName());
-        restartPodmanContainer(name);
+        restartDockerContainer(name);
     }
 
     /**
-     * Restarts the specified Podman container by stopping and then starting it.
+     * Restarts the specified docker container by stopping and then starting it.
      *
-     * @param containerName the name of the Podman container to restart
+     * @param containerName the name of the docker container to restart
      * @throws RuntimeException if an IOException or InterruptedException occurs
      */
-    public void restartPodmanContainer(String containerName) {
+    public void restartDockerContainer(String containerName) {
         try {
-            ProcessBuilder stopBuilder = new ProcessBuilder("podman", "stop", containerName);
+            ProcessBuilder stopBuilder = new ProcessBuilder("docker", "stop", containerName);
             stopBuilder.inheritIO();
             Process stopProcess = stopBuilder.start();
             stopProcess.waitFor();
 
-            ProcessBuilder startBuilder = new ProcessBuilder("podman", "start", containerName);
+            ProcessBuilder startBuilder = new ProcessBuilder("docker", "start", containerName);
             startBuilder.inheritIO();
             Process startProcess = startBuilder.start();
             startProcess.waitFor();
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("Failed to restart podman container: " + containerName, e);
+            throw new RuntimeException("Failed to restart docker container: " + containerName, e);
         }
     }
     
     /**
-     * Gets the name of the running Podman container by its image name.
+     * Gets the name of the running docker container by its image name.
      *
-     * @param imageName the image name of the Podman container
+     * @param imageName the image name of the docker container
      * @return the name of the running container, or null if not found
      * @throws RuntimeException if an IOException or InterruptedException occurs
      */
     public String getRunningContainerNameByImage(String imageName) {
         try {
-            ProcessBuilder psBuilder = new ProcessBuilder("podman", "ps", "--format", "{{.Names}} {{.Image}}");
+            ProcessBuilder psBuilder = new ProcessBuilder("docker", "ps", "--format", "{{.Names}} {{.Image}}");
             psBuilder.redirectErrorStream(true);
             Process psProcess = psBuilder.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(psProcess.getInputStream()));
