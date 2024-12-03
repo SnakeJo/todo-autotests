@@ -30,6 +30,17 @@ This project is a test framework for the Todo Application, designed to ensure th
    mvn test
    ```
 
+## Description of Key Project Directories
+- src/main/* - contains the main application logic
+- src/test/* - contains tests for the application
+
+- assembling - contains classes for assembling structures used in tests
+- config - contains classes for configuring various service components
+- domain - contains classes for data representation
+- service - contains classes for interacting with the tested service
+- utils - contains classes for utility operations
+
+
 ## Note
-   In TODO: added indications of found errors and deficiencies for the todo-app
-   As well as additional unimplemented tests
+- In TODO: added indications of found errors and deficiencies for the todo-app
+-  As well as additional unimplemented tests

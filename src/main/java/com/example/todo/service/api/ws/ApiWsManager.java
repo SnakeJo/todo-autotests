@@ -13,11 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class ApiWsClient extends WebSocketClient {
+public class ApiWsManager extends WebSocketClient {
 
     private Consumer<String> messageHandler;
     
-    public ApiWsClient(WebSocketConfiguration webSocketConfiguration) throws Exception {
+    public ApiWsManager(WebSocketConfiguration webSocketConfiguration) throws Exception {
         super(new URI(webSocketConfiguration.getApiWsBaseUrl()));
     }
 
